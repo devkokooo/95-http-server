@@ -1,0 +1,19 @@
+{
+  "name": "build-your-own-http-server",
+  "module": "main.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "npx ts-node main.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "22"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": "22"
+  }
+}

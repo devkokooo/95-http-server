@@ -1,0 +1,5 @@
+{
+  "buildcommand": "",
+  "language": "typescript",
+  "runcommand": "npx ts-node main.ts"
+}
