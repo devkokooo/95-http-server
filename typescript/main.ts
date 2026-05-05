@@ -4,7 +4,7 @@ const server = net.createServer((socket) => {
   socket.on("data", (data) => {
     const req = data.toString();
 
-    const lines = req.split("\n");
+    const lines = req.split("\r\n");
     const reqLine = lines[0];
     const details = reqLine?.split(" ");
 
@@ -27,8 +27,18 @@ const server = net.createServer((socket) => {
       socket.write(resStatus);
       socket.write(resHeaders);
       socket.write(resBody);
+    }
+    else if(path?.includes("/user-agent")) {
+      const userAgent = lines[2] as string;
+      const uaValue = userAgent.replace("User-Agent: ", "");
 
-      console.log(resStatus + resHeaders + resBody);
+      const resStatus = "HTTP/1.1 200 OK\r\n";
+      const resHeaders = `Content-Type: text/plain\r\nContent-Length: ${uaValue.length}\r\n`;
+      const resBody = `\r\n${uaValue}`;
+
+      socket.write(resStatus);
+      socket.write(resHeaders);
+      socket.write(resBody);
     }
     else {
       // Send 404 Not Found for every other path

@@ -1,5 +1,7 @@
 {
   "buildcommand": "",
   "language": "typescript",
+  "lastaction": "run",
+  "lastuuid": "dce35563-56e7-46f3-a2ea-58c56faf6217",
   "runcommand": "npx ts-node main.ts"
 }
