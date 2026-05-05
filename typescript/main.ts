@@ -3,7 +3,6 @@ import net from "node:net";
 const server = net.createServer((socket) => {
   socket.on("data", (data) => {
     const req = data.toString();
-    console.log(req);
 
     const lines = req.split("\n");
     const reqLine = lines[0];
@@ -16,6 +15,20 @@ const server = net.createServer((socket) => {
       const ok = "HTTP/1.1 200 OK\r\n\r\n";
       socket.write(ok);
       console.log(ok);
+    }
+    else if(path?.includes("/echo")) {
+      const subpaths = path.split("/");
+      const str: string = subpaths[2] as string;
+
+      const resStatus = "HTTP/1.1 200 OK\r\n";
+      const resHeaders = `Content-Type: text/plain\r\nContent-Length: ${str.length}\r\n`;
+      const resBody = `\r\n${str}`;
+
+      socket.write(resStatus);
+      socket.write(resHeaders);
+      socket.write(resBody);
+
+      console.log(resStatus + resHeaders + resBody);
     }
     else {
       // Send 404 Not Found for every other path
